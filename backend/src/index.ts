@@ -14,20 +14,39 @@ import authRoutes from './routes/auth';
 
 const app = express();
 
-// Middleware
-app.use(cors({
-    origin: [
-        'http://localhost:3000',
-        'http://localhost:5173',
-        'http://localhost:8081',
-        'http://localhost:8082',
-        'https://prism-nine-jade.vercel.app',
-        'vscode://extension'
-    ],
+// CORS configuration with explicit origin function
+const corsOptions = {
+    origin: function (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void) {
+        const allowedOrigins = [
+            'http://localhost:3000',
+            'http://localhost:5173',
+            'http://localhost:8081',
+            'http://localhost:8082',
+            'https://prism-nine-jade.vercel.app',
+            'vscode://extension'
+        ];
+        
+        // Allow requests with no origin (mobile apps, curl, etc)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log('CORS blocked origin:', origin);
+            callback(new Error('Not allowed by CORS'), false);
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Team-ID']
-}));
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Team-ID', 'Accept', 'Origin'],
+    optionsSuccessStatus: 200 // For legacy browsers
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options('*', cors(corsOptions));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
@@ -59,7 +78,7 @@ app.get('/', (_req, res) => {
   res.json({
     message: 'Welcome to Prism Backend!',
     status: 'running',
-    version: '2.0.0',
+    version: '2.0.2',
     timestamp: new Date().toISOString(),
     features: {
       authentication: 'User login/register with JWT',
@@ -87,7 +106,7 @@ app.get('/api/status', (_req, res) => {
     status: 'ok',
     timestamp: new Date().toISOString(),
     database: 'connected',
-    version: '2.0.1'
+    version: '2.0.2'
   });
 });
 
@@ -117,9 +136,10 @@ app.use((req: express.Request, res: express.Response) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Prism Server v2.0.0 running on port ${PORT}`);
+  console.log(`🚀 Prism Server v2.0.2 running on port ${PORT}`);
   console.log(`📱 VS Code Extension API: http://localhost:${PORT}/api`);
   console.log(`🔐 Authentication API: http://localhost:${PORT}/api/auth`);
   console.log(`🌐 Frontend Dashboard: http://localhost:5173 (if running)`);
   console.log(`📋 API Documentation: http://localhost:${PORT}/`);
+  console.log(`🔗 CORS enabled for: https://prism-nine-jade.vercel.app`);
 });
