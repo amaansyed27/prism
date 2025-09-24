@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://prism-0eo7.onrender.com/api"
+    }
+  }
+}
