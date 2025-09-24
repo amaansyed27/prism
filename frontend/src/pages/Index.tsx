@@ -7,12 +7,15 @@ import {
   ArrowLeft,
   User,
   Github,
-  Mail
+  Mail,
+  LogOut
 } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 import backgroundImage from '@/assets/prism-background.jpg';
 
 const PrismDashboard = () => {
   const [currentPage, setCurrentPage] = useState('projects');
+  const { user, logout, currentTeam } = useAuth();
 
   const navigation = [
     { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
@@ -27,6 +30,9 @@ const PrismDashboard = () => {
         <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
           Prism
         </h1>
+        {currentTeam && (
+          <p className="text-xs text-muted-foreground mt-1">{currentTeam.name}</p>
+        )}
       </div>
 
       {/* Navigation */}
@@ -55,14 +61,25 @@ const PrismDashboard = () => {
       </nav>
 
       {/* User Profile */}
-      <div className="glass-panel-hover p-4 rounded-lg flex items-center space-x-3">
-        <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
-          <User className="w-5 h-5 text-primary" />
+      <div className="space-y-3">
+        <div className="glass-panel-hover p-4 rounded-lg flex items-center space-x-3">
+          <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+            <User className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-medium text-sm truncate">{user?.name || 'Developer'}</p>
+            <p className="text-xs text-muted-foreground truncate">{user?.email || 'developer@prism.dev'}</p>
+          </div>
         </div>
-        <div>
-          <p className="font-medium text-sm">Developer</p>
-          <p className="text-xs text-muted-foreground">developer@prism.dev</p>
-        </div>
+        
+        {/* Logout Button */}
+        <button
+          onClick={logout}
+          className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 hover:glass-panel-hover text-sidebar-foreground hover:text-red-400"
+        >
+          <LogOut className="w-5 h-5" />
+          <span className="font-medium">Sign Out</span>
+        </button>
       </div>
     </div>
   );

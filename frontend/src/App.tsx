@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import LandingPage from "./pages/LandingPage";
-import Dashboard from "./pages/Dashboard";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -33,11 +32,7 @@ const AppRoutes = () => {
       />
       <Route 
         path="/dashboard" 
-        element={user ? <Dashboard /> : <Navigate to="/" replace />} 
-      />
-      <Route 
-        path="/index" 
-        element={<Index />} 
+        element={user ? <Index /> : <Navigate to="/" replace />} 
       />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />

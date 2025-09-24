@@ -46,7 +46,7 @@ export const useAuth = () => {
 
 // Configure axios
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://prism-0eo7.onrender.com/api',
   withCredentials: true,
   timeout: 10000,
 });
