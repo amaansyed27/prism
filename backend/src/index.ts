@@ -21,6 +21,7 @@ app.use(cors({
         'http://localhost:5173',
         'http://localhost:8081',
         'http://localhost:8082',
+        'https://prism-nine-jade.vercel.app',
         'vscode://extension'
     ],
     credentials: true,
