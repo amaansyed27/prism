@@ -9,9 +9,11 @@ import {
   ArrowRight,
   Sparkles,
   Code2,
-  Lock
+  Lock,
+  Plus
 } from 'lucide-react';
 import AuthModal from '../components/AuthModal';
+import backgroundImage from '@/assets/prism-background.jpg';
 
 const LandingPage: React.FC = () => {
   const [authModal, setAuthModal] = useState<'login' | 'register' | null>(null);
@@ -50,36 +52,31 @@ const LandingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-[url('/src/assets/prism-background.jpg')] bg-cover bg-center opacity-20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-      
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-pink-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
-      
+    <div 
+      className="dark min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <div className="relative z-10">
         {/* Navigation */}
         <nav className="p-6">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary to-primary-glow rounded-lg flex items-center justify-center">
                 <Code2 className="w-6 h-6 text-white" />
               </div>
-              <h1 className="text-2xl font-bold text-white">Prism</h1>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">Prism</h1>
             </div>
             
             <div className="flex space-x-4">
               <button 
                 onClick={() => setAuthModal('login')}
-                className="px-6 py-2 text-white/90 hover:text-white transition-colors"
+                className="btn-secondary"
               >
                 Sign In
               </button>
               <button 
                 onClick={() => setAuthModal('register')}
-                className="px-6 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-200"
+                className="btn-primary"
               >
                 Get Started
               </button>
@@ -91,20 +88,20 @@ const LandingPage: React.FC = () => {
         <section className="px-6 pt-20 pb-32">
           <div className="max-w-7xl mx-auto text-center">
             <div className="mb-8">
-              <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 mb-8">
-                <Sparkles className="w-5 h-5 text-yellow-400" />
-                <span className="text-white/90 text-sm font-medium">AI-Powered Development Collaboration</span>
+              <div className="inline-flex items-center space-x-2 glass-panel px-6 py-3 mb-8 border border-primary/20">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <span className="text-foreground text-sm font-medium">AI-Powered Development Collaboration</span>
               </div>
             </div>
             
-            <h1 className="text-6xl md:text-7xl font-bold text-white mb-8 leading-tight">
+            <h1 className="text-6xl md:text-7xl font-bold text-foreground mb-8 leading-tight">
               Code Without
-              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
                 Conflicts
               </span>
             </h1>
             
-            <p className="text-xl text-white/80 max-w-3xl mx-auto mb-12 leading-relaxed">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
               Prism revolutionizes team development with intelligent conflict detection, 
               real-time collaboration, and seamless VS Code integration. Build together, 
               merge without fear.
@@ -113,15 +110,15 @@ const LandingPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button 
                 onClick={() => setAuthModal('register')}
-                className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+                className="btn-primary flex items-center space-x-2 text-lg px-8 py-4"
               >
                 <span>Start Collaborating</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5" />
               </button>
               
               <button 
                 onClick={() => setAuthModal('login')}
-                className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all duration-200"
+                className="btn-secondary text-lg px-8 py-4"
               >
                 Watch Demo
               </button>
@@ -133,11 +130,11 @@ const LandingPage: React.FC = () => {
         <section className="px-6 pb-20">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-6">
+              <h2 className="text-4xl font-bold text-foreground mb-6">
                 Intelligent Development, 
-                <span className="text-purple-400"> Simplified</span>
+                <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent"> Simplified</span>
               </h2>
-              <p className="text-white/70 text-lg max-w-2xl mx-auto">
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                 Experience the future of collaborative coding with AI-powered conflict prevention 
                 and seamless team synchronization.
               </p>
@@ -147,19 +144,19 @@ const LandingPage: React.FC = () => {
               {features.map((feature, index) => (
                 <div 
                   key={index}
-                  className="group p-8 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl hover:bg-white/15 transition-all duration-300 hover:transform hover:scale-105"
+                  className="glass-panel p-8 rounded-2xl hover:glass-panel-hover transition-all duration-300 hover:transform hover:scale-105 border border-border"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center mb-6 group-hover:from-blue-500/30 group-hover:to-purple-600/30 transition-all duration-300">
-                    <div className="text-blue-400 group-hover:text-blue-300 transition-colors">
+                  <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6">
+                    <div className="text-primary">
                       {feature.icon}
                     </div>
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-white mb-3">
+                  <h3 className="text-xl font-semibold text-foreground mb-3">
                     {feature.title}
                   </h3>
                   
-                  <p className="text-white/70 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -171,24 +168,24 @@ const LandingPage: React.FC = () => {
         {/* CTA Section */}
         <section className="px-6 pb-20">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-3xl p-12">
-              <Lock className="w-16 h-16 text-purple-400 mx-auto mb-6" />
+            <div className="glass-panel p-12 rounded-3xl border border-primary/20">
+              <Lock className="w-16 h-16 text-primary mx-auto mb-6" />
               
-              <h2 className="text-3xl font-bold text-white mb-6">
+              <h2 className="text-3xl font-bold text-foreground mb-6">
                 Ready to Transform Your Development Workflow?
               </h2>
               
-              <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+              <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
                 Join thousands of developers who've eliminated merge conflicts and 
                 accelerated their team collaboration with Prism.
               </p>
               
               <button 
                 onClick={() => setAuthModal('register')}
-                className="group px-10 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl text-white font-semibold hover:from-purple-600 hover:to-pink-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2 mx-auto"
+                className="btn-primary flex items-center space-x-2 mx-auto text-lg px-10 py-4"
               >
                 <span>Get Started Free</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>

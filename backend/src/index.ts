@@ -87,7 +87,7 @@ app.get('/api/status', (_req, res) => {
     status: 'ok',
     timestamp: new Date().toISOString(),
     database: 'connected',
-    version: '2.0.0'
+    version: '2.0.1'
   });
 });
 
