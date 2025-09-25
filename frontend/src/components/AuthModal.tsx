@@ -75,8 +75,17 @@ const AuthModal: React.FC<AuthModalProps> = ({ mode, onClose }) => {
       } else {
         setError('Registration failed. Please try again.');
       }
-    } catch (error) {
-      setError('Registration failed. Please try again.');
+    } catch (error: any) {
+      console.error('Registration failed:', error);
+      
+      // Handle specific error codes
+      if (error?.response?.status === 409) {
+        setError('An account with this email already exists. Please sign in instead.');
+      } else if (error?.response?.data?.message) {
+        setError(error.response.data.message);
+      } else {
+        setError('Registration failed. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -165,7 +174,18 @@ const AuthModal: React.FC<AuthModalProps> = ({ mode, onClose }) => {
 
       {error && (
         <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-lg text-red-200 text-sm">
-          {error}
+          <div className="flex items-center justify-between">
+            <span>{error}</span>
+            {error.includes('already exists') && (
+              <button
+                type="button"
+                onClick={() => setCurrentMode('login')}
+                className="ml-3 px-3 py-1 bg-blue-500/30 hover:bg-blue-500/40 border border-blue-400/30 rounded-lg text-blue-200 text-xs font-medium transition-colors"
+              >
+                Sign In Instead
+              </button>
+            )}
+          </div>
         </div>
       )}
 

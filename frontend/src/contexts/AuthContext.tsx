@@ -90,7 +90,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return;
       }
 
-      const response = await api.get('/auth/me');
+      const response = await api.get('/auth/profile');
       const userData = response.data.user;
       setUser(userData);
 
